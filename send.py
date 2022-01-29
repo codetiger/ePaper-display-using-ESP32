@@ -1,7 +1,6 @@
 import socket, struct, time, random
 from PIL import Image, ImageOps
 from io import BytesIO
-from selenium import webdriver
 
 TCP_IP = '192.168.0.214'
 TCP_PORT = 8319
@@ -32,24 +31,11 @@ def drawImage(posx, posy, origImage):
     s.sendall(header)
 
 
-opts = webdriver.FirefoxOptions()
-opts.headless = True
-browser = webdriver.Firefox(options=opts)
-url = 'http://192.168.0.42:3000/d/x847S8ZRk/home-monitoring?refresh=5s&kiosk'
-# url = 'http://192.168.0.42:3000/d/x847S8ZRk/home-monitoring?viewPanel=2&refresh=5s&kiosk'
-# url = 'https://en.wikipedia.org/wiki/Pongal_(festival)'
-browser.get(url)
-browser.set_window_size(1872*0.7, 1404*0.7)
-time.sleep(3)
-browser.save_screenshot('screen_shot.png')
-
 clearScreen(15)
 time.sleep(1)
-origImage = Image.open('screen_shot.png')
+origImage = Image.open('family.jpeg')
 origImage = origImage.resize((1872, 1404))
 drawImage(0, 0, origImage)
-# browser.close()
-# browser.quit()
 
 time.sleep(1)
 s.close()
